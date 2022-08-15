@@ -7,7 +7,9 @@ object Main {
   @main
   def request(): Unit =
     val resp = requests.get("http://httpbin.org/get")
-    println(resp)
+    val json = ujson.read(resp.text())
+
+    println(json("origin").str)
 
   // needed by mainargs
   def main(args: Array[String]): Unit = ParserForMethods(this).runOrExit(args)
